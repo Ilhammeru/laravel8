@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\contactController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/contact', [contactController::class, 'index'])->middleware('age');
+Route::get('/contact', [contactController::class, 'index'])->middleware('age')->name('con');
 
 Route::get('/about', function() {
     return view('admin/about');
+})->name('aboutPage');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+
+    // $user = User::all();
+    $user = DB::table('users')->get();
+    return view('dashboard', compact('user'));
+})->name('dashboard');
+
+Route::get('/check/{id?}', function($id = "default") {
+  return view('welcome');
 });
