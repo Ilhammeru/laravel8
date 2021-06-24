@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
       // QUERY BUILDER METHOD
       $categories = DB::table('categories')
-          ->get();
+          ->paginate(5);
       return view('admin/category', compact('categories'));
     }
 
