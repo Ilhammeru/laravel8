@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\contactController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -35,3 +36,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/check/{id?}', function($id = "default") {
   return view('welcome');
 });
+
+Route::get('/category', [CategoryController::class, 'index'])->name('category');
+Route::post('/category/add', [CategoryController::class, 'add_category'])->name('store.category');
